@@ -8,6 +8,7 @@
   <script type="text/javascript" language="javascript"></script>
   <script>
     var mqtt;
+    var mqttclient = Math.random().toString(36).slice(2, 7);
     var reconnectTimeout = 2000;
     var host = "test.mosquitto.org";
     var port = 8080;
@@ -19,10 +20,11 @@
       mqtt.subscribe("BCC/SensorValue/Test");
       message = new Paho.MQTT.Message("Hello Test");
       message.destinationName = "Bananenbrot";
+      console.log("Client Name: %s", mqttclient);
     }
     function MQTTconnect() {
       console.log("Connecting to " + host + " " + port);
-      mqtt = new Paho.MQTT.Client(host, port, "clientjs");
+      mqtt = new Paho.MQTT.Client(host, port, mqttclient);
       var options = {
         timeout: 3,
         onSuccess: onConnect,
